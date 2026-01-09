@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SmartStockPulse.Domain\SmartStockPulse.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

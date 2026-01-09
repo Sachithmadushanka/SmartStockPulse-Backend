@@ -1,3 +1,8 @@
+using DotNetEnv;
+
+// Load environment variables from .env file (in solution root)
+Env.Load();
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
