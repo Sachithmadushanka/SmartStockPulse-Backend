@@ -1,101 +1,201 @@
-#### Get All Stocks
-```http
-GET /api/stock
-Content-Type: application/json
+﻿# 📈 SmartStockPulse
+
+> *An intelligent, high-performance backend for stock market management*
+
+![.NET](https://img.shields.io/badge/.NET-9.0-blue.svg)
+![C#](https://img.shields.io/badge/C%23-13.0-239120.svg)
+![ASP.NET Core](https://img.shields.io/badge/ASP.NET%20Core-9.0-blueviolet.svg)
+![REST API](https://img.shields.io/badge/API-REST-green.svg)
+![Architecture](https://img.shields.io/badge/Architecture-Clean-lightgrey.svg)
+
+---
+
+## 🌟 Overview
+
+**SmartStockPulse** is a modern, scalable **Stock Management REST API** built using **.NET 9** and **C# 13**.
+It follows **Clean Architecture** and **Domain-Driven Design** principles to ensure maintainability, testability, and high performance.
+
+This project provides a solid backend foundation for applications that require **stock tracking, price management, and market data handling**.
+
+---
+
+## ✨ Key Features
+
+* 🚀 **High Performance** – Powered by .NET 9 and async programming
+* 🧼 **Clean Architecture** – Clear separation of concerns
+* 📦 **RESTful API** – Well-structured CRUD endpoints
+* 🧩 **Scalable Design** – Ready for database & cloud integration
+* 🌍 **Cross-Platform** – Runs on Windows, Linux, and macOS
+
+---
+
+## 🏛️ Project Architecture
+
+```
+SmartStockPulse/
+├── 🎯 SmartStockPulse.API
+│   ├── Controllers/        # API endpoints
+│   ├── Program.cs         # Application entry point
+│   └── appsettings.json   # Configuration
+│
+├── 📋 SmartStockPulse.Application
+│   ├── Interfaces/        # Service contracts
+│   └── Services/          # Business logic
+│
+├── 🏗️ SmartStockPulse.Domain
+│   └── Entities/          # Core domain models
+│
+└── 💾 SmartStockPulse.Infrastructure
+    └── Repositories/      # Data access layer
 ```
 
-#### Add New Stock
+---
+
+## 🎭 Design Patterns & Principles
+
+* **Clean Architecture**
+* **Repository Pattern**
+* **Service Layer Pattern**
+* **Dependency Injection**
+* **SOLID Principles**
+
+---
+
+## 🚀 Getting Started
+
+### 🔧 Prerequisites
+
+* .NET 9 SDK
+* Visual Studio / VS Code / JetBrains Rider
+
+---
+
+### 📥 Installation
+
+1. **Clone the repository**
+
+```bash
+git clone https://github.com/Sachithmadushanka/SmartStockPulse-Backend
+cd SmartStockPulse
+```
+
+2. **Restore dependencies**
+
+```bash
+dotnet restore
+```
+
+3. **Build the project**
+
+```bash
+dotnet build
+```
+
+4. **Run the API**
+
+```bash
+dotnet run --project SmartStockPulse.API
+```
+
+5. **Open Swagger UI**
+
+```
+https://localhost:5146/swagger
+```
+
+---
+
+## 📡 API Endpoints
+
+| Method   | Endpoint          | Description        |
+| -------- | ----------------- | ------------------ |
+| 📋 GET   | `/api/stock`      | Get all stocks     |
+| 🔍 GET   | `/api/stock/{id}` | Get stock by ID    |
+| ➕ POST   | `/api/stock`      | Create a new stock |
+| ✏️ PUT   | `/api/stock/{id}` | Update stock       |
+| ❌ DELETE | `/api/stock/{id}` | Delete stock       |
+
+---
+
+## 🧪 Sample Requests
+
+### ➕ Create Stock
+
 ```http
 POST /api/stock
 Content-Type: application/json
 
 {
-  "symbol": "MSFT",
-  "companyName": "Microsoft Corporation",
-  "currentPrice": 420.69
+  "symbol": "AAPL",
+  "companyName": "Apple Inc.",
+  "currentPrice": 189.45
 }
 ```
 
-#### Response Format
+### 📤 Sample Response
+
 ```json
 {
   "id": 1,
-  "symbol": "MSFT",
-  "companyName": "Microsoft Corporation",
-  "currentPrice": 420.69,
-  "lastUpdated": "2024-01-15T10:30:00Z"
+  "symbol": "AAPL",
+  "companyName": "Apple Inc.",
+  "currentPrice": 189.45,
+  "lastUpdated": "2026-01-10T08:30:00Z"
 }
 ```
 
 ---
 
-## ?? Features in Detail
+## 💡 Core Domain Model
 
-### ?? Stock Entity
-Our core `Stock` model includes:
-- **ID**: Unique identifier
-- **Symbol**: Stock ticker symbol (e.g., "AAPL", "GOOGL")
-- **Company Name**: Full company name
-- **Current Price**: Real-time stock price
-- **Last Updated**: Timestamp of last price update
+### 📊 Stock Entity
 
-### ?? Service Layer
-- **IStockService**: Business logic interface
-- **StockService**: Implementation with full CRUD operations
-- Async/await patterns for optimal performance
-
-### ?? Repository Pattern
-- **IStockRepository**: Data access interface
-- **StockRepository**: In-memory implementation (ready for database integration)
+* **Id** – Unique identifier
+* **Symbol** – Stock ticker (e.g., AAPL, MSFT)
+* **CompanyName** – Full company name
+* **CurrentPrice** – Latest price
+* **LastUpdated** – Timestamp of update
 
 ---
 
-## ??? Development
+## 🛠️ Development & Build
 
-### ?? Testing
+### 🧪 Run Tests
+
 ```bash
-# Run unit tests (when implemented)
 dotnet test
 ```
 
-### ?? Building for Production
+### 📦 Publish for Production
+
 ```bash
-# Create optimized release build
 dotnet publish -c Release -o ./publish
 ```
-```
 
 ---
 
-## ??? Roadmap
+## 🗺️ Roadmap
 
-### ?? Upcoming Features
+* [ ] 🔐 JWT Authentication & Authorization
+* [ ] 💾 Database Integration (EF Core + SQL Server)
+* [ ] 📡 Real-Time Updates with SignalR
+* [ ] 🔍 Search & Filtering
+* [ ] ☁️ Cloud Deployment (Azure)
 
-- [ ] ?? **Authentication & Authorization** (JWT)
-- [ ] ?? **Database Integration** (Entity Framework Core)
-- [ ] ?? **Real-time Stock Data** (SignalR)
-- [ ] ?? ** Search & Filtering**
-- [ ] ?? **Mobile App Support**
-- [ ] ?? **Cloud Deployment** (Azure/AWS)
-- [ ] ?? **Price Alerts & Notifications**
 
 ---
 
-## ?? Acknowledgments
 
-- ?? **Microsoft** for the amazing .NET platform
-- ?? **ASP.NET Core Team** for the fantastic web framework
-- ?? **Open Source Community** for inspiration and support
+## 🙏 Acknowledgments
+
+* 💙 Microsoft .NET Team
+* 🌟 ASP.NET Core Community
+* 🧠 Clean Architecture Concepts by Uncle Bob
 
 ---
 
 <div align="center">
 
-
-*Built with ?? using .NET 9 and C# 13.0*
+**Built using .NET 9 & C# 13**
 
 </div>
-
----
-
-*SmartStockPulse - Where smart investing begins* ???
