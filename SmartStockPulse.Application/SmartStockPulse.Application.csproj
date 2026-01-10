@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SmartStockPulse.Domain\SmartStockPulse.Domain.csproj" />
+    <ProjectReference Include="..\SmartStockPulse.Infrastructure\SmartStockPulse.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,54 +1,49 @@
 ﻿using SmartStockPulse.Domain.Entities;
+using SmartStockPulse.Infrastructure.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using SmartStockPulse.Domain.Repositories;
+
 
 namespace SmartStockPulse.Infrastructure.Repositories
 {
     public class StockRepository : IStockRepository
     {
-        private static readonly List<Stock> _stocks = new();
-
-        public Task<IEnumerable<Stock>> GetAllAsync()
+        private static readonly List<Stock> _stocks = new()
         {
-            return Task.FromResult(_stocks.AsEnumerable());
-        }
+            new Stock { Id = 1, Symbol = "AAPL", CompanyName = "Apple", CurrentPrice = 175.5M, LastUpdated = System.DateTime.Now },
+            new Stock { Id = 2, Symbol = "GOOGL", CompanyName = "Alphabet", CurrentPrice = 135.7M, LastUpdated = System.DateTime.Now }
+        };
 
-        public Task<Stock?> GetByIdAsync(int id)
-        {
-            var stock = _stocks.FirstOrDefault(s => s.Id == id);
-            return Task.FromResult(stock);
-        }
+        public Task<IEnumerable<Stock>> GetAllStocksAsync() => Task.FromResult(_stocks.AsEnumerable());
 
-        public Task AddAsync(Stock stock)
+        public Task<Stock?> GetStockByIdAsync(int id) => Task.FromResult(_stocks.FirstOrDefault(s => s.Id == id));
+
+        public Task AddStockAsync(Stock stock)
         {
-            stock.Id = _stocks.Count + 1;
-            stock.LastUpdated = DateTime.UtcNow;
+            stock.Id = _stocks.Any() ? _stocks.Max(s => s.Id) + 1 : 1;
+            stock.LastUpdated = System.DateTime.Now;
             _stocks.Add(stock);
             return Task.CompletedTask;
         }
 
-        public Task<bool> UpdateAsync(int id, Stock stock)
+        public Task<bool> UpdateStockAsync(int id, Stock stock)
         {
             var existing = _stocks.FirstOrDefault(s => s.Id == id);
-            if (existing == null)
-                return Task.FromResult(false);
+            if (existing == null) return Task.FromResult(false);
 
             existing.Symbol = stock.Symbol;
             existing.CompanyName = stock.CompanyName;
             existing.CurrentPrice = stock.CurrentPrice;
-            existing.LastUpdated = DateTime.UtcNow;
-
+            existing.LastUpdated = System.DateTime.Now;
             return Task.FromResult(true);
         }
 
-        public Task<bool> DeleteAsync(int id)
+        public Task<bool> DeleteStockAsync(int id)
         {
             var stock = _stocks.FirstOrDefault(s => s.Id == id);
-            if (stock == null)
-                return Task.FromResult(false);
+            if (stock == null) return Task.FromResult(false);
 
             _stocks.Remove(stock);
             return Task.FromResult(true);

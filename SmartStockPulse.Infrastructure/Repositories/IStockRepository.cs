@@ -1,12 +1,15 @@
-﻿using System;
+﻿using SmartStockPulse.Domain.Entities;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SmartStockPulse.Infrastructure.Repositories
 {
-    internal interface IStockRepository
+    public interface IStockRepository
     {
+        Task<IEnumerable<Stock>> GetAllStocksAsync();
+        Task<Stock?> GetStockByIdAsync(int id);
+        Task AddStockAsync (Stock stock);
+        Task<bool> UpdateStockAsync(int id, Stock stock);
+        Task<bool> DeleteStockAsync(int id);
     }
 }

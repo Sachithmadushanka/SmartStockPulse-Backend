@@ -1,33 +1,55 @@
 using Microsoft.AspNetCore.Mvc;
+using SmartStockPulse.Application.Services;
+using SmartStockPulse.Domain.Entities;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SmartStockPulse.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    [Route("api/[controller]")]
+    public class StockController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
+        private readonly IStockService _service;
+        public StockController(IStockService service)
         {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
-        private readonly ILogger<WeatherForecastController> _logger;
-
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
-        {
-            _logger = logger;
+            _service = service;
         }
-
-        [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Stock>>> GetStocks()
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+            var stocks = await _service.GetAllStocksAsync();
+            return Ok(stocks);
+        }
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Stock>> GetStock(int id)
+        {
+            var stock = await _service.GetStockByIdAsync(id);
+            if (stock == null)
+                return NotFound();
+            return Ok(stock);
+        }
+        [HttpPost]
+        public async Task<ActionResult<Stock>> AddStock(Stock stock)
+        {
+            await _service.AddStockAsync(stock);
+            return CreatedAtAction(nameof(GetStock), new { id = stock.Id }, stock);
+        }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateStock(int id, Stock stock)
+        {
+            var updated = await _service.UpdateStockAsync(id, stock);
+            if (!updated) return NotFound();
+            return NoContent();
+        }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteStock(int id)
+        {
+            var deleted = await _service.DeleteStockAsync(id);
+            if (!deleted) return NotFound();
+            return NoContent();
         }
     }
+    
+
 }
