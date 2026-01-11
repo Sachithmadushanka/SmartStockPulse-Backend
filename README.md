@@ -158,34 +158,6 @@ Content-Type: application/json
 
 ---
 
-## 🛠️ Development & Build
-
-### 🧪 Run Tests
-
-```bash
-dotnet test
-```
-
-### 📦 Publish for Production
-
-```bash
-dotnet publish -c Release -o ./publish
-```
-
----
-
-## 🗺️ Roadmap
-
-* [ ] 🔐 JWT Authentication & Authorization
-* [ ] 💾 Database Integration (EF Core + SQL Server)
-* [ ] 📡 Real-Time Updates with SignalR
-* [ ] 🔍 Search & Filtering
-* [ ] ☁️ Cloud Deployment (Azure)
-
-
----
-
-
 ## 🙏 Acknowledgments
 
 * 💙 Microsoft .NET Team
